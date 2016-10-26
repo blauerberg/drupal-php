@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+    mysql:
+      image: mysql:5.5
+      volumes:
+        - "~/drupal-php/example/large/mysql/server.cnf:/etc/mysql/conf.d/server.cnf" # override mysql config if necessary
+        - "~/your/mysql/volume/path:/var/lib/mysql" # put your drupal source code and mount as volume
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: drupal
+        MYSQL_USER: drupal
+        MYSQL_PASSWORD: drupal
+      ports:
+        - "3306:3306"
+      container_name: drupal_mysql
+
+    php:
+      image: blauerberg/drupal-php:5.6-fpm
+      volumes:
+        - "~/drupal-php/example/large/php/www.conf:/usr/local/etc/php-fpm.d/www.conf" # override php-fpm config to use xdebug with port 9001.
+        - "~/your/drupal/code/path:/var/www/html" # put your drupal source code and mount as volume
+      links:
+        - mysql
+      ports:
+        - "9000:9000"
+        - "9001:9001"
+      container_name: drupal_php
+
+    nginx:
+      image: nginx:1.10
+      links:
+        - php
+      volumes:
+        - "~/drupal-php/example/large/nginx/default.conf:/etc/nginx/conf.d/default.conf" # override nginx config to execute drupal through the php container.
+        - "~/your/drupal/code/path:/var/www/html" # put your drupal source code and mount as volume.
+      ports:
+        - "80:80"
+      container_name: drupal_nginx

@@ -38,6 +38,8 @@ services:
       volumes:
         # override nginx config to execute drupal through the php container.
         - "~/drupal-php/example/large/nginx/default.conf:/etc/nginx/conf.d/default.conf"
+        # memory_limit set to 1024M for drush
+        - "~/drupal-php/example/large/php/php.ini:/usr/local/etc/php/php.ini"
         # put your drupal source code and mount as volume
         - "~/volumes/drupal:/var/www/html"
       ports:

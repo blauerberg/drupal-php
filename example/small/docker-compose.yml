@@ -22,6 +22,8 @@ services:
       volumes:
         # override php-fpm config to use xdebug with port 9001.
         - "~/drupal-php/example/small/php/www.conf:/usr/local/etc/php-fpm.d/www.conf"
+        # memory_limit set to 512M for drush
+        - "~/drupal-php/example/small/php/php.ini:/usr/local/etc/php/php.ini"
         # put your drupal source code and mount as volume
         - "~/volumes/drupal:/var/www/html"
       links:

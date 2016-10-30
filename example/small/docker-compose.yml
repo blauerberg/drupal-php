@@ -2,10 +2,12 @@ version: '2'
 
 services:
     mysql:
-      image: mysql:5.5
+      image: mariadb:10.1
       volumes:
-        - "~/drupal-php/example/small/mysql/server.cnf:/etc/mysql/conf.d/server.cnf" # override mysql config if necessary
-        - "~/your/mysql/volume/path:/var/lib/mysql" # put your drupal source code and mount as volume
+        # override mysql config if necessary
+        - "~/drupal-php/example/small/mysql/server.cnf:/etc/mysql/conf.d/server.cnf"
+        # It is also possible to save mysql files to on host filesystem.
+        # - "~/volumes/mysql:/var/lib/mysql"
       environment:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_DATABASE: drupal
@@ -16,10 +18,12 @@ services:
       container_name: drupal_mysql
 
     php:
-      image: blauerberg/drupal-php:5.6-fpm
+      image: blauerberg/drupal-php:7.0-fpm
       volumes:
-        - "~/drupal-php/example/small/php/www.conf:/usr/local/etc/php-fpm.d/www.conf" # override php-fpm config to use xdebug with port 9001.
-        - "~/your/drupal/code/path:/var/www/html" # put your drupal source code and mount as volume
+        # override php-fpm config to use xdebug with port 9001.
+        - "~/drupal-php/example/small/php/www.conf:/usr/local/etc/php-fpm.d/www.conf"
+        # put your drupal source code and mount as volume
+        - "~/volumes/drupal:/var/www/html"
       links:
         - mysql
       ports:
@@ -32,8 +36,10 @@ services:
       links:
         - php
       volumes:
-        - "~/drupal-php/example/small/nginx/default.conf:/etc/nginx/conf.d/default.conf" # override nginx config to execute drupal through the php container.
-        - "~/your/drupal/code/path:/var/www/html" # put your drupal source code and mount as volume.
+        # override nginx config to execute drupal through the php container.
+        - "~/drupal-php/example/small/nginx/default.conf:/etc/nginx/conf.d/default.conf"
+        # put your drupal source code and mount as volume
+        - "~/volumes/drupal:/var/www/html"
       ports:
         - "80:80"
       container_name: drupal_nginx

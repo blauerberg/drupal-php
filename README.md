@@ -17,16 +17,16 @@ This container provide below features:
   - composer
   - drush 8.x
 
-So if you want to create full stack for develop your Drupal site, you can use this container with official [nginx](https://hub.docker.com/_/nginx) and [mariadb](https://hub.docker.com/_/mariadb) (or [mysql](https://hub.docker.com/_/mysql)) image.
-
+if you want to create full stack for develop your Drupal site, you can use this container with official [nginx](https://hub.docker.com/_/nginx) and [mariadb](https://hub.docker.com/_/mariadb) (or [mysql](https://hub.docker.com/_/mysql)) image.
 
 ## Quick start
 ```
 $ cd ~
 $ git clone https://github.com/blauerberg/drupal-php.git
-$ mkdir -p ~/your/mysql/volume/path
-$ mkdir -p ~/your/drupal/code/path
-$ (put your durpal source code into ~/your/drupal/code/path)
+$ mkdir -p ~/volumes/mysql
+$ mkdir -p ~/volumes/drupal
+$ cd ~/volumes/drupal
+$ curl https://ftp.drupal.org/files/projects/drupal-X.YY.tar.gz | tar zx --strip=1
 $ cd drupal-php/example/small
 $ docker-compose up
 ```
@@ -37,10 +37,12 @@ version: '2'
 
 services:
     mysql:
-      image: mysql:5.5
+      image: mariadb:10.1
       volumes:
-        - "~/drupal-php/example/small/mysql/server.cnf:/etc/mysql/conf.d/server.cnf" # override mysql config if necessary
-        - "~/your/mysql/volume/path:/var/lib/mysql" # put your drupal source code and mount as volume
+        # override mysql config if necessary
+        - "~/drupal-php/example/small/mysql/server.cnf:/etc/mysql/conf.d/server.cnf"
+        # It is also possible to save mysql files to on host filesystem.
+        # - "~/volumes/mysql:/var/lib/mysql"
       environment:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_DATABASE: drupal
@@ -51,10 +53,12 @@ services:
       container_name: drupal_mysql
 
     php:
-      image: blauerberg/drupal-php:5.6-fpm
+      image: blauerberg/drupal-php:7.0-fpm
       volumes:
-        - "~/drupal-php/example/small/php/www.conf:/usr/local/etc/php-fpm.d/www.conf" # override php-fpm config to use xdebug with port 9001.
-        - "~/your/drupal/code/path:/var/www/html" # put your drupal source code and mount as volume
+        # override php-fpm config to use xdebug with port 9001.
+        - "~/drupal-php/example/small/php/www.conf:/usr/local/etc/php-fpm.d/www.conf"
+        # put your drupal source code and mount as volume
+        - "~/volumes/drupal:/var/www/html"
       links:
         - mysql
       ports:
@@ -67,8 +71,10 @@ services:
       links:
         - php
       volumes:
-        - "~/drupal-php/example/small/nginx/default.conf:/etc/nginx/conf.d/default.conf" # override nginx config to execute drupal through the php container.
-        - "~/your/drupal/code/path:/var/www/html" # put your drupal source code and mount as volume.
+        # override nginx config to execute drupal through the php container.
+        - "~/drupal-php/example/small/nginx/default.conf:/etc/nginx/conf.d/default.conf"
+        # put your drupal source code and mount as volume
+        - "~/volumes/drupal:/var/www/html"
       ports:
         - "80:80"
       container_name: drupal_nginx

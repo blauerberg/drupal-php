@@ -9,5 +9,7 @@ innodb_log_file_size = 256M
 innodb_file_per_table = 1
 query_cache_size = 128M
 
+[mariadb]
+
 [embedded]
 

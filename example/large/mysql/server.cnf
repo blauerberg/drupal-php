@@ -1,4 +1,5 @@
 [server]
+character-set-server=utf8
 
 [mysqld]
 max_allowed_packet = 256M

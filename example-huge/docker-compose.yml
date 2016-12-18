@@ -4,18 +4,17 @@ services:
   datastore:
     image: busybox
     volumes:
-      # put your drupal source code and mount as volume
-      - ./datastore/volumes/drupal:/var/www/html
+      # put your drupal source code and mount as volume.
+      - ./volumes/drupal:/var/www/html
       # It is also possible to save mysql files to on host filesystem.
-      - ./datastore/volumes/mysql:/var/lib/mysql
+      - ./volumes/mysql:/var/lib/mysql
     container_name: drupal_datastore
-
   mysql:
     image: mariadb:10.1
     volumes_from:
       - datastore
     volumes:
-      # override mysql config if necessary
+      # override mysql config if necessary.
       - ./mysql/server.cnf:/etc/mysql/conf.d/server.cnf
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -25,23 +24,18 @@ services:
     ports:
       - "3306:3306"
     container_name: drupal_mysql
-
   php:
     image: blauerberg/drupal-php:7.0-fpm
     volumes_from:
       - datastore
     volumes:
-      # memory_limit set to 512M for drush
+      # allocate large memory_limit for drush.
       - ./php/php.ini:/usr/local/etc/php/php.ini
       # override php-fpm config to use xdebug with port 9001.
       - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
     links:
       - mysql
-    ports:
-      - "9000:9000"
-      - "9001:9001"
     container_name: drupal_php
-
   nginx:
     image: nginx:1.10
     links:

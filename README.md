@@ -30,6 +30,9 @@ $ docker-compose up -d
 
 # Linux only: fix permissions for your drupal directory with:
 $ docker-compose exec php chown -R www-data:www-data /var/www/html
+
+# access your drupal site!
+$ open http://127.0.0.1
 ```
 
 ### Example of docker-compose.yml for Quick start

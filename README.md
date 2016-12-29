@@ -70,8 +70,9 @@ services:
     volumes:
       # allocate large memory_limit for drush.
       - ./php/php.ini:/usr/local/etc/php/php.ini
-      # override php-fpm config to use xdebug with port 9001.
+      # override php-fpm config to use xdebug with port 9000.
       - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./php/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
     links:
       - mysql
     container_name: drupal_php

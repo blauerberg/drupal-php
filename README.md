@@ -3,7 +3,8 @@
 This container provide below features:
   - php-fpm 5.6 or 7.0 (depending on tag) with extensions to support generic drupal development.
     - mbstring
-    - mysqlndg
+    - mysqlnd
+    - mysqli
     - curl
     - openssl
     - mcrypt

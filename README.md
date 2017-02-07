@@ -1,7 +1,7 @@
 # Simple php-fpm container for drupal
 
 This container provide below features:
-  - php-fpm 5.6 or 7.0 (depending on tag) with extensions to support generic drupal development.
+  - php-fpm 5.6 or 7.0 or 7.1 (depending on tag) with extensions to support generic drupal development.
     - mbstring
     - mysqlnd
     - mysqli

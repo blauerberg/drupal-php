@@ -24,7 +24,10 @@ RUN apt-get update && apt-get install -y \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && pecl install apcu-4.0.11 \
-    && docker-php-ext-enable apcu
+    && docker-php-ext-enable apcu \
+    && apt-get autoclean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/cache/apt/archives/*
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \

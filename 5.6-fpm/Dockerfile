@@ -37,6 +37,6 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 RUN /usr/local/bin/composer global require "hirak/prestissimo"
 
-RUN /usr/local/bin/composer global require "drush/drush:9.0.0-beta4" \
+RUN /usr/local/bin/composer global require "drush/drush:8.*" \
         && ln -s ~/.composer/vendor/bin/drush /usr/local/bin/drush \
         && /usr/local/bin/drush -y init

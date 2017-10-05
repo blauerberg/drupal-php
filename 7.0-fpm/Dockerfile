@@ -35,6 +35,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && ln -s /usr/local/bin/composer /usr/bin/composer
 
+RUN /usr/local/bin/composer config -g repos.packagist composer https://packagist.jp
 RUN /usr/local/bin/composer global require "hirak/prestissimo"
 
 RUN /usr/local/bin/composer global require "drush/drush:8.*" \

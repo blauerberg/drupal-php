@@ -19,6 +19,7 @@ This container provide below features:
   - drush 8.x
 
 if you want to create full stack for develop your Drupal site, you can use this container with official [nginx](https://hub.docker.com/_/nginx) and [mariadb](https://hub.docker.com/_/mariadb) (or [mysql](https://hub.docker.com/_/mysql)) image.
+And you can also use image that contains set of libphp 5.6 or 7.0 or 7.1 (depending on tag) and apache2.
 
 ## How to use
 

@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
         g++ \
         unzip \
         ssmtp \
+        locales \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
@@ -37,6 +38,10 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 RUN /usr/local/bin/composer config -g repos.packagist composer https://packagist.jp
 RUN /usr/local/bin/composer global require "hirak/prestissimo"
+
+RUN sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && sed -i 's/# ja_JP.UTF-8 UTF-8/ja_JP.UTF-8 UTF-8/' /etc/locale.gen \
+    && locale-gen
 
 RUN /usr/local/bin/composer global require "drush/drush:8.*" \
         && ln -s ~/.composer/vendor/bin/drush /usr/local/bin/drush \

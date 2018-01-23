@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
         libpng12-dev \
         zlib1g-dev \
         libicu-dev \
+        libxml2-dev \
         g++ \
         unzip \
         ssmtp \
@@ -19,6 +20,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure intl \ 
     && docker-php-ext-install -j$(nproc) intl \
+    && docker-php-ext-install -j$(nproc) simplexml \
+    && docker-php-ext-install -j$(nproc) xml \
     && docker-php-ext-install -j$(nproc) zip \
     && docker-php-ext-install -j$(nproc) pdo \
     && docker-php-ext-install -j$(nproc) pdo_mysql \

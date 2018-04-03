@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
         zlib1g-dev \
         libicu-dev \
         libxml2-dev \
+        libbz2-dev \
         g++ \
         unzip \
         ssmtp \
@@ -24,6 +25,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) simplexml \
     && docker-php-ext-install -j$(nproc) xml \
     && docker-php-ext-install -j$(nproc) zip \
+    && docker-php-ext-install -j$(nproc) bz2 \
     && docker-php-ext-install -j$(nproc) pdo \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-install -j$(nproc) mysqli \

@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-install -j$(nproc) mysqli \
     && docker-php-ext-install -j$(nproc) opcache \
-    && pecl install xdebug \
+    && pecl install xdebug-2.5.5 \
     && docker-php-ext-enable xdebug \
     && pecl install apcu-4.0.11 \
     && docker-php-ext-enable apcu \

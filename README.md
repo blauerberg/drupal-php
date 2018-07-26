@@ -18,6 +18,7 @@ This container provide below features:
     - xml
     - zip
     - bz2
+    - memcache
   - composer
   - drush 8.x
 

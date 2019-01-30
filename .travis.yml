@@ -1,0 +1,11 @@
+language: bash
+
+services:
+  - docker
+
+install:
+  - docker build -t build -t blauerberg/drupal-php:7.1-fpm 7.1-fpm
+  - docker run -d --name php blauerberg/drupal-php:7.1-fpm
+
+script:
+  - docker ps | grep -q php

@@ -44,6 +44,10 @@ RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && ln -s /usr/local/bin/composer /usr/bin/composer
 
+# Allow Composer to be run as root and set $PATH for Composer Executables
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV PATH "$PATH:/root/.composer/vendor/bin"
+
 RUN /usr/local/bin/composer config -g repos.packagist composer https://packagist.jp
 RUN /usr/local/bin/composer global require "hirak/prestissimo"
 
@@ -54,3 +58,9 @@ RUN sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
 RUN /usr/local/bin/composer global require "drush/drush:8.*" \
         && ln -s ~/.composer/vendor/bin/drush /usr/local/bin/drush \
         && /usr/local/bin/drush -y init
+
+RUN /usr/local/bin/composer global require "drupal/coder" && \
+    phpcs --config-set installed_paths /root/.composer/vendor/drupal/coder/coder_sniffer/ \
+    && phpcs --config-set default_standard Drupal,DrupalPractice
+
+RUN /usr/local/bin/composer global require "friendsofphp/php-cs-fixer"

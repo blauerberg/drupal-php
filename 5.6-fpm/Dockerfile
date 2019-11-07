@@ -3,7 +3,7 @@ MAINTAINER Yoshikazu Aoyama <yskz.aoyama@gmail.com>
 
 RUN apt-get update && apt-get install -y \
         git \
-        mysql-client \
+        default-mysql-client \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
         libbz2-dev \
         g++ \
         unzip \
-        ssmtp \
+        msmtp \
         locales \
         libmemcached-dev \
         zip \

@@ -4,7 +4,7 @@ MAINTAINER Yoshikazu Aoyama <yskz.aoyama@gmail.com>
 RUN a2enmod rewrite
 RUN apt-get update && apt-get install -y \
         git \
-        defaut-mysql-client \
+        default-mysql-client \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \

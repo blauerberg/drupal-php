@@ -22,9 +22,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure intl \ 
-    && docker-php-ext-install -j$RUN ln -s ~/.composer/vendor/bin/phpcs /usr/bin/phpcs && \
-    ln -s ~/.composer/vendor/bin/php-cs-fixer /usr/bin/php-cs-fixer
-(nproc) intl \
+    && docker-php-ext-install -j$(nproc) intl \
+    && docker-php-ext-install -j$(nproc) intl \
     && docker-php-ext-install -j$(nproc) simplexml \
     && docker-php-ext-install -j$(nproc) xml \
     && docker-php-ext-install -j$(nproc) zip \

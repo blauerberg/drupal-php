@@ -23,7 +23,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure intl \ 
     && docker-php-ext-install -j$(nproc) intl \
-    && docker-php-ext-install -j$(nproc) intl \
     && docker-php-ext-install -j$(nproc) simplexml \
     && docker-php-ext-install -j$(nproc) xml \
     && docker-php-ext-install -j$(nproc) zip \

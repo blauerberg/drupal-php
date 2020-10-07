@@ -1,5 +1,5 @@
 FROM php:7.0-apache
-MAINTAINER Yoshikazu Aoyama <yskz.aoyama@gmail.com>
+LABEL maintainer="Yoshikazu Aoyama <yskz.aoyama@gmail.com>"
 
 RUN a2enmod rewrite
 RUN apt-get update && apt-get install -y \

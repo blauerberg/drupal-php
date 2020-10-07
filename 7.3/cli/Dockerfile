@@ -1,5 +1,5 @@
 FROM php:7.3-cli
-MAINTAINER Yoshikazu Aoyama <yskz.aoyama@gmail.com>
+LABEL maintainer="Yoshikazu Aoyama <yskz.aoyama@gmail.com>"
 
 RUN apt-get update && apt-get install -y \
         git \

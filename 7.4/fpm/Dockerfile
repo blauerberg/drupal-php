@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-install -j$(nproc) mysqli \
     && docker-php-ext-install -j$(nproc) opcache \
-    && pecl install xdebug \
+    && pecl install xdebug-2.9.8 \
     && docker-php-ext-enable xdebug \
     && pecl install apcu \
     && docker-php-ext-enable apcu \
@@ -54,10 +54,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV PATH "$PATH:/root/.composer/vendor/bin"
 
-RUN /usr/local/bin/composer config -g repos.packagist composer https://packagist.jp
-RUN /usr/local/bin/composer global require "hirak/prestissimo"
-
-RUN /usr/local/bin/composer global require "drush/drush:8.*" \
+RUN /usr/local/bin/composer global require "drush/drush:8.x" \
         && ln -s ~/.composer/vendor/bin/drush /usr/local/bin/drush \
         && /usr/local/bin/drush -y init
 
@@ -65,4 +62,3 @@ RUN /usr/local/bin/composer global require "drupal/coder" && \
     phpcs --config-set installed_paths /root/.composer/vendor/drupal/coder/coder_sniffer/ \
     && phpcs --config-set default_standard Drupal,DrupalPractice
 
-RUN /usr/local/bin/composer global require "friendsofphp/php-cs-fixer"
